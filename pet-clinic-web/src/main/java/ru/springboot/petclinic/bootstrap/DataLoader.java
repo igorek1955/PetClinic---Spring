@@ -6,8 +6,6 @@ import ru.springboot.petclinic.model.Owner;
 import ru.springboot.petclinic.model.Vet;
 import ru.springboot.petclinic.services.OwnerService;
 import ru.springboot.petclinic.services.VetService;
-import ru.springboot.petclinic.services.map.OwnerServiceMap;
-import ru.springboot.petclinic.services.map.VetServiceMap;
 
 
 //component annotation means that spring framework will automatically detect it
@@ -17,9 +15,9 @@ public class DataLoader implements CommandLineRunner {
     private final OwnerService ownerService;
     private final VetService vetService;
 
-    public DataLoader(){
-        ownerService = new OwnerServiceMap();
-        vetService = new VetServiceMap();
+    public DataLoader(OwnerService ownerService, VetService vetService) {
+        this.ownerService = ownerService;
+        this.vetService = vetService;
     }
 
     @Override
