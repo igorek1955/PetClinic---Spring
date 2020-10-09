@@ -48,6 +48,7 @@
 			<artifactId>jaxb-impl</artifactId>
 			<version>${jaxb.version}</version>
 		</dependency>
+
 	</dependencies>
 
 	<build>
