@@ -1,0 +1,5 @@
+ru\springboot\petclinic\controllers\OwnerController.class
+ru\springboot\petclinic\controllers\VetController.class
+ru\springboot\petclinic\controllers\IndexController.class
+ru\springboot\petclinic\PetClinicApplication.class
+ru\springboot\petclinic\bootstrap\DataLoader.class
