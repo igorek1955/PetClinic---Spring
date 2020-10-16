@@ -8,7 +8,9 @@ import ru.springboot.petclinic.services.OwnerService;
 import ru.springboot.petclinic.services.PetService;
 import ru.springboot.petclinic.services.PetTypeService;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Profile({"default", "map"})
@@ -76,4 +78,11 @@ public class OwnerMapService extends AbstractMapService<Owner, Long> implements 
                 .findFirst()
                 .orElse(null);
     }
+
+    @Override
+    public List<Owner> findAllByLastNameLike(String lastName){
+        List<Owner> owners = this.findAll().stream().filter(owner -> owner.getLastName().contains(lastName)).collect(Collectors.toList());
+        return owners;
+    }
+
 }
