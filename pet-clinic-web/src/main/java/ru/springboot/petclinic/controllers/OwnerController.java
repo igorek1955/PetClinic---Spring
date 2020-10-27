@@ -7,7 +7,9 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.springboot.petclinic.model.Owner;
+import ru.springboot.petclinic.model.Pet;
 import ru.springboot.petclinic.services.OwnerService;
+import ru.springboot.petclinic.services.VisitService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -18,9 +20,11 @@ public class OwnerController {
     private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
 
     private final OwnerService ownerService;
+    private final VisitService visitService;
 
-    public OwnerController(OwnerService ownerService) {
+    public OwnerController(OwnerService ownerService, VisitService visitService) {
         this.ownerService = ownerService;
+        this.visitService = visitService;
     }
 
     @InitBinder
@@ -63,6 +67,10 @@ public class OwnerController {
     @GetMapping("/{ownerId}")
     public ModelAndView showOwner(@PathVariable Long ownerId) {
         ModelAndView mav = new ModelAndView("owners/ownerDetails");
+        Owner owner = ownerService.findById(ownerId);
+        for (Pet pet: owner.getPets()){
+            pet.setVisitsInternal(visitService.findByPetId(pet.getId()));
+        }
         mav.addObject(ownerService.findById(ownerId));
         return mav;
     }

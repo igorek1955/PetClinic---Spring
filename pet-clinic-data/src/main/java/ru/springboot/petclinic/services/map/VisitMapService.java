@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 import ru.springboot.petclinic.model.Visit;
 import ru.springboot.petclinic.services.VisitService;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Profile({"default", "map"})
@@ -40,5 +42,19 @@ public class VisitMapService extends AbstractMapService<Visit, Long> implements 
     @Override
     public Visit findById(Long id) {
         return super.findById(id);
+    }
+
+    @Override
+    public List<Visit> findByPetId(Long petId) {
+        List<Visit> v = null;
+        try{
+            v = this.findAll().stream()
+                    .filter(visit -> visit.getPet().getId().equals(petId))
+                    .collect(Collectors.toList());
+        }
+        catch (NullPointerException e){
+            throw new NullPointerException("visit not found");
+        }
+        return v;
     }
 }

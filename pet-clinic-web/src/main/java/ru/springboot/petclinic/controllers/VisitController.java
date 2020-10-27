@@ -11,6 +11,8 @@ import ru.springboot.petclinic.services.PetService;
 import ru.springboot.petclinic.services.VisitService;
 
 import javax.validation.Valid;
+import java.beans.PropertyEditorSupport;
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/owners/")
@@ -23,6 +25,18 @@ public class VisitController {
     public VisitController(VisitService visitService, PetService petService) {
         this.visitService = visitService;
         this.petService = petService;
+    }
+
+    @InitBinder
+    public void dataBinder(WebDataBinder dataBinder){
+        dataBinder.setDisallowedFields("id");
+
+        dataBinder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport(){
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException{
+                setValue(LocalDate.parse(text));
+            }
+        });
     }
 
     @InitBinder
