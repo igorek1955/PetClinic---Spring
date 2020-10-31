@@ -30,7 +30,6 @@ public class VisitController {
     @InitBinder
     public void dataBinder(WebDataBinder dataBinder){
         dataBinder.setDisallowedFields("id");
-
         dataBinder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport(){
             @Override
             public void setAsText(String text) throws IllegalArgumentException{
@@ -44,23 +43,15 @@ public class VisitController {
         dataBinder.setDisallowedFields("id");
     }
 
-    /**
-     * Called before each and every @RequestMapping annotated method.
-     * 2 goals:
-     * - Make sure we always have fresh data
-     * - Since we do not use the session scope, make sure that Pet object always has an id
-     * (Even though id is not part of the form fields)
-     *
-     * @param petId
-     * @return Pet
-     */
+
 
     @ModelAttribute("visit")
-    public Visit loadPetWithVisit(@PathVariable("petId") Long petId, Model model){
-        Pet pet = petService.findById(petId);
+    public Visit loadPetWithVisit(@PathVariable("petId") Long id, Model model){
+        Pet pet = petService.findById(id);
         model.addAttribute("pet", pet);
         Visit visit = new Visit();
-        pet.addVisit(visit);
+        pet.getVisits().add(visit);
+        visit.setPet(pet);
         return visit;
     }
 

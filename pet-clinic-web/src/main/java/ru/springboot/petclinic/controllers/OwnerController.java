@@ -7,7 +7,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.springboot.petclinic.model.Owner;
-import ru.springboot.petclinic.model.Pet;
 import ru.springboot.petclinic.services.OwnerService;
 import ru.springboot.petclinic.services.VisitService;
 
@@ -67,10 +66,6 @@ public class OwnerController {
     @GetMapping("/{ownerId}")
     public ModelAndView showOwner(@PathVariable Long ownerId) {
         ModelAndView mav = new ModelAndView("owners/ownerDetails");
-        Owner owner = ownerService.findById(ownerId);
-        for (Pet pet: owner.getPets()){
-            pet.setVisitsInternal(visitService.findByPetId(pet.getId()));
-        }
         mav.addObject(ownerService.findById(ownerId));
         return mav;
     }
