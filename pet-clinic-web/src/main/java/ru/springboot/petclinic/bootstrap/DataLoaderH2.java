@@ -4,26 +4,17 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import ru.springboot.petclinic.model.*;
-import ru.springboot.petclinic.services.*;
+import ru.springboot.petclinic.repositories.*;
 
 import java.time.LocalDate;
 
 
 //component annotation means that spring framework will automatically detect it
-@Profile("h2")
+@Profile({"default", "map"})
 @Component
-public class DataLoader implements CommandLineRunner {
+public class DataLoaderH2 implements CommandLineRunner {
 
-    private final OwnerService ownerService;
-    private final VetService vetService;
-    private final PetTypeService petTypeService;
-    private final SpecialityService specialityService;
-    private final VisitService visitService;
-
-
-    public DataLoader(OwnerService ownerService, VetService vetService,
-                      PetTypeService petTypeService, SpecialityService specialityService,
-                      VisitService visitService) {
+    public DataLoaderH2(OwnerRepository ownerService, VetRepository vetService, PetTypeRepository petTypeService, SpecialityRepository specialityService, VisitRepository visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
@@ -31,12 +22,16 @@ public class DataLoader implements CommandLineRunner {
         this.visitService = visitService;
     }
 
+    private final OwnerRepository ownerService;
+    private final VetRepository vetService;
+    private final PetTypeRepository petTypeService;
+    private final SpecialityRepository specialityService;
+    private final VisitRepository visitService;
+
+
     @Override
     public void run(String... args) throws Exception {
-        int count = petTypeService.findAll().size();
-        if (count == 0) {
-            loadData();
-        }
+        loadData();
     }
 
     private void loadData() {
