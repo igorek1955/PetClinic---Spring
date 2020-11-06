@@ -10,6 +10,7 @@
 
     <artifactId>pet-clinic-web</artifactId>
 
+
     <properties>
         <!-- Web dependencies -->
         <webjars-bootstrap.version>3.3.6</webjars-bootstrap.version>
