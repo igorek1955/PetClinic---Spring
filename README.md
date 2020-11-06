@@ -25,6 +25,29 @@ spring.datasource.username=
 spring.datasource.password=
 ```
 
+To run PetClinic from command line, run these commands: 
+```
+git clone https://github.com/igorek1955/pet-clinic-springboot.git
+cd pet-clinic-springboot/
+./mwnw install 
+cd pet-clinic-web
+./mwnw spring-boot:run
+```
+
+To deploy application via Docker refer to the Dockerfile and configure it to your liking.
+
+```
+FROM openjdk:11
+ADD target/pet-clinic-web-0.0.5-SNAPSHOT.jar app.jar
+EXPOSE 8085
+ENTRYPOINT ["java", "-jar", "app.jar"]
+```
+To create and deploy image run these commands in the command line:
+```
+docker build -f Dockerfile -t petclinic .
+docker run -p 8080:8080 -d petclinic
+```
+
 #My Other Projects
 
 | Project | Link |

@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 
 //component annotation means that spring framework will automatically detect it
-@Profile("h2")
+@Profile({"default","springdatajpa","map"})
 @Component
 public class DataLoader implements CommandLineRunner {
 
