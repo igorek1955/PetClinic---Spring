@@ -48,7 +48,7 @@ docker build -f Dockerfile -t petclinic .
 docker run -p 8080:8080 -d petclinic
 ```
 
-#My Other Projects
+# My Other Projects
 
 | Project | Link |
 |------|-------|
