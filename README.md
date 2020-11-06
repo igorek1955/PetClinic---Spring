@@ -25,7 +25,7 @@ spring.datasource.username=
 spring.datasource.password=
 ```
 
-#My Other Projects
+# My Other Projects
 
 | Project | Link |
 |------|-------|
