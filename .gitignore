@@ -32,6 +32,7 @@ build/
 
 ### Properties ###
 !**/src/main/resources/application.properties
+pet-clinic-web/src/main/resources/application.properties
 
 ### VS Code ###
 .vscode/
